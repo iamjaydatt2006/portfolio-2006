@@ -1,0 +1,32 @@
+# Jekyll build output and caches
+_site/
+.jekyll-cache/
+.jekyll-metadata
+.sass-cache/
+
+# Bundler and local gems
+.bundle/
+vendor/bundle/
+vendor/cache/
+
+# Secrets and local configuration
+.env
+.env.*
+*.pem
+*.key
+_config.local.yml
+.dev.vars
+.wrangler/
+
+# Editors and operating systems
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+node_modules/

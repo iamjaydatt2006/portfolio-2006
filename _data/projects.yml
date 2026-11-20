@@ -55,6 +55,10 @@
   featured: true
   summary: A School Management ERP system for handling school administration in one place.
   overview: School ERP Portal is a school management ERP system. A public demo and source repository are not available at the moment.
+  image: /assets/images/projects/school-erp-placeholder.webp
+  image_alt: "Placeholder for School ERP Portal. A screenshot is not available."
+  image_width: 1200
+  image_height: 750
   technologies: []
 
 - slug: personal-portfolio

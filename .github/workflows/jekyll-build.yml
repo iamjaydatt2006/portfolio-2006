@@ -1,0 +1,56 @@
+name: Jekyll build
+
+# Build validation only. Cloudflare Pages deploys production from `main`
+# through its own Git integration. Nothing is deployed from here.
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: jekyll-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      JEKYLL_ENV: production
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby (version from .ruby-version)
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Build site
+        run: bundle exec jekyll build --strict_front_matter --trace
+
+      - name: Validate generated output
+        run: |
+          set -eu
+          required="index.html 404.html robots.txt sitemap.xml _headers \
+            about/index.html projects/index.html experience/index.html \
+            skills/index.html education/index.html contact/index.html \
+            assets/css/main.css assets/js/main.js"
+          for f in $required; do
+            test -s "_site/$f" || { echo "::error::Missing or empty _site/$f"; exit 1; }
+          done
+          # Every project in the data file must have a generated detail page.
+          for slug in $(grep -E '^- slug:' _data/projects.yml | awk '{print $3}'); do
+            test -s "_site/projects/$slug/index.html" || { echo "::error::Missing project page: $slug"; exit 1; }
+          done
+          # Canonical URLs must use the production domain.
+          if grep -rIl "localhost" _site --include="*.html" --include="*.xml" --include="*.txt"; then
+            echo "::error::Found localhost in generated output"; exit 1
+          fi
+          grep -q 'rel="canonical" href="https://jaydatt.pages.dev/"' _site/index.html
+          echo "Output looks good: $(find _site -name '*.html' | wc -l) HTML files"

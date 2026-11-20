@@ -1,0 +1,16 @@
+# `footer_only` items are shown in the footer but not in the header.
+- title: Home
+  url: /
+- title: About
+  url: /about/
+- title: Projects
+  url: /projects/
+- title: Experience
+  url: /experience/
+- title: Skills
+  url: /skills/
+- title: Education
+  url: /education/
+  footer_only: true
+- title: Contact
+  url: /contact/

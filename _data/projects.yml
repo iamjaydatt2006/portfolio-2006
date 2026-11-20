@@ -1,0 +1,77 @@
+# Each entry here becomes a card, a featured item (if `featured: true`) and a
+# detail page at /projects/<slug>/. No template edits are needed.
+#
+# Required:  slug, name, category, summary
+# Optional:  featured, year, overview, problem, solution, features[],
+#            technologies[], development (text), url, repo,
+#            image, image_alt, image_width, image_height, screenshots[]
+#            (each: src, alt, width, height)
+#
+# Empty fields are hidden. Only add details and links you can stand behind.
+
+- slug: it-is-unique-official
+  name: It Is Unique Official
+  category: Organization Website
+  featured: true
+  year: 2023
+  summary: The official website of It Is Unique Official, an open-source software and developer platform I founded in 2023.
+  overview: It Is Unique Official is the organization I founded in 2023. Its website is the public home for the organization and its work.
+  url: https://www.itisuniqueofficial.com
+  image: /assets/images/projects/it-is-unique-official.webp
+  image_alt: Home page of the It Is Unique Official website
+  image_width: 1200
+  image_height: 750
+  technologies: []
+
+- slug: track-pe
+  name: Track Pe
+  category: Web Application
+  featured: true
+  summary: A mobile-first web app with bill splitting and UPI payment tools, built for educational and research purposes.
+  overview: Track Pe is a web application from It Is Unique Official. It offers POS Split, Group Split, and MDR Roast tools around UPI payments, and states that it is for educational and research purposes only.
+  url: https://track-pe.itisuniqueofficial.com
+  image: /assets/images/projects/track-pe.webp
+  image_alt: Track Pe web app showing the POS Split screen
+  image_width: 1200
+  image_height: 750
+  technologies: []
+
+- slug: the-ridhu-times
+  name: The Ridhu Times
+  category: News Website
+  featured: true
+  summary: An online news website covering India, world, politics, business, sports, entertainment, technology, and more.
+  overview: The Ridhu Times is a news website that publishes articles across sections such as India, World, Politics, Business, Sports, Entertainment, Technology, Crime, and City, with web stories and an RSS feed.
+  url: https://www.theridhutimes.com/
+  image: /assets/images/projects/the-ridhu-times.webp
+  image_alt: Masthead and navigation of The Ridhu Times website
+  image_width: 1200
+  image_height: 750
+  technologies: []
+
+- slug: school-erp
+  name: School ERP Portal
+  category: Management System
+  featured: true
+  summary: A School Management ERP system for handling school administration in one place.
+  overview: School ERP Portal is a school management ERP system. A public demo and source repository are not available at the moment.
+  technologies: []
+
+- slug: personal-portfolio
+  name: Personal Portfolio
+  category: Portfolio
+  featured: false
+  summary: This website. A static, typography-focused portfolio built with Jekyll and deployed on Cloudflare Pages.
+  overview: My personal website, built as a static Jekyll site with data-driven pages for projects, skills, experience, and education.
+  features:
+    - Multi-page architecture with a dedicated page for each project
+    - Content managed through Jekyll data files
+    - Structured data and metadata for search engines
+    - Responsive, keyboard-accessible layout with no frontend framework
+  url: https://jaydatt.pages.dev
+  technologies:
+    - Jekyll
+    - Liquid
+    - SCSS
+    - JavaScript
+    - Cloudflare Pages

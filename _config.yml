@@ -1,0 +1,86 @@
+# ---------------------------------------------------------------------------
+# Site settings. Personal details live here so they can be edited in one place.
+# Restart `jekyll serve` after editing this file.
+# ---------------------------------------------------------------------------
+title: Jaydatt Khodave
+tagline: Computer Science Engineering Student & Software Developer
+description: >-
+  Portfolio of Jaydatt Khodave, a Computer Science Engineering student at MGM
+  University building modern websites, web applications, and digital solutions.
+lang: en
+locale: en_IN
+
+# `url` is used by jekyll-sitemap. `jekyll serve` overrides it with localhost,
+# so canonical URLs and structured data use `canonical_url` instead.
+url: "https://jaydatt.pages.dev"
+canonical_url: "https://jaydatt.pages.dev"
+baseurl: ""
+
+author:
+  name: Jaydatt Khodave
+  short_name: Jaydatt
+  job_title: Computer Science Engineering Student & Software Developer
+  email: iamjaydatt@gmail.com
+  location: Maharashtra, India
+  region: Maharashtra
+  country: IN
+  education: B.Tech in Computer Science & Engineering
+  university: MGM University
+  graduation_year: 2029
+
+social:
+  github: https://github.com/iamjaydatt2006
+  linkedin: https://www.linkedin.com/in/iamjaydatt/
+
+organization:
+  name: It Is Unique Official
+  url: https://www.itisuniqueofficial.com
+  founded: 2023
+
+# Pretty URLs: /about/, /projects/school-erp/
+permalink: pretty
+
+# Optional resume. The header button appears only if this file exists.
+resume_path: /assets/resume.pdf
+
+# Optional small status line in the hero. Set `enabled: false` to hide it.
+availability:
+  enabled: true
+  text: Open to projects and collaboration
+
+# Social preview image (1200x630 PNG recommended).
+og_image: /assets/images/og-image.png
+og_image_alt: "Jaydatt Khodave, Computer Science Engineering Student & Software Developer"
+theme_color: "#ffffff"
+
+plugins:
+  - jekyll-sitemap
+
+# Cloudflare Pages reads `_headers` from the output directory.
+include:
+  - _headers
+
+exclude:
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - node_modules
+  - scripts
+  - tmp
+
+sass:
+  style: compressed
+  sourcemap: never
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+      sitemap: true
+  - scope:
+      path: ""
+      type: pages
+    values:
+      layout: page

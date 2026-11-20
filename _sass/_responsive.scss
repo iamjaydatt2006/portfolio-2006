@@ -1,0 +1,108 @@
+@use "variables" as *;
+
+// Mobile-first. Base rules are the small-screen layout.
+
+@media (min-width: $bp-sm) {
+  .grid-projects { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .interests { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .skill-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+  .contact__list > div {
+    grid-template-columns: 8rem 1fr;
+    align-items: baseline;
+  }
+
+  .site-footer__top { grid-template-columns: 1fr 1fr; }
+  .site-footer__about { grid-column: 1 / -1; }
+}
+
+@media (min-width: $bp-md) {
+  .nav-toggle { display: none !important; }
+
+  // Desktop header: wordmark | nav ... GitHub (+ Resume)
+  .site-header__menu,
+  .js .site-header__menu {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+    flex-basis: auto;
+    margin-left: var(--space-4);
+    animation: none;
+  }
+
+  .site-nav__list {
+    flex-direction: row;
+    gap: 0.125rem;
+    padding-block: 0;
+
+    a {
+      min-height: var(--header-height);
+      padding-inline: 0.75rem;
+      padding-left: 0.75rem;
+      border-left: 0;
+      border-bottom: 2px solid transparent;
+      // Offset so the indicator sits on the header border.
+      margin-bottom: -1px;
+
+      &[aria-current="page"] { border-bottom-color: var(--color-accent); }
+    }
+  }
+
+  .site-header__extra { padding-block: 0; }
+  .header-link { padding-left: 0.5rem; }
+
+  .section__grid {
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  .cta__inner {
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-5);
+    align-items: end;
+  }
+
+  .timeline__entry {
+    grid-template-columns: 11rem minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  .site-footer__top { grid-template-columns: 1.4fr 1fr 1fr; }
+  .site-footer__about { grid-column: auto; }
+
+  // Alternating editorial rows when a thumbnail exists.
+  .project--row:has(.project__media) {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+    align-items: center;
+    gap: var(--space-5);
+
+    .project__body { padding-block: var(--space-2); }
+  }
+
+  .featured > .project--row:has(.project__media):nth-child(even) {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+
+    .project__media { order: 2; }
+  }
+
+}
+
+@media (min-width: $bp-lg) {
+  .section__grid { grid-template-columns: 14rem minmax(0, 1fr); }
+  .timeline__entry { grid-template-columns: 14rem minmax(0, 1fr); }
+
+  .hero__grid {
+    grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+    gap: var(--space-5);
+    align-items: end;
+  }
+
+  .grid-projects { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .interests { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .skill-list { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: $bp-xl) {
+  :root { --container-width: 68rem; }
+}

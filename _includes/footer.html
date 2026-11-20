@@ -1,0 +1,30 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="site-footer__top">
+      <div class="site-footer__about">
+        <a class="wordmark" href="{{ '/' | relative_url }}" aria-label="{{ site.author.short_name }}, home">{{ site.author.short_name }}</a>
+        <p>Computer Science Engineering student and software developer from {{ site.author.location }}. Founder of <a href="{{ site.organization.url }}" target="_blank" rel="noopener noreferrer">{{ site.organization.name }}<span class="sr-only"> (opens in new tab)</span></a>.</p>
+      </div>
+      <nav class="site-footer__col" aria-label="Footer">
+        <h2 class="site-footer__heading">Pages</h2>
+        <ul>
+          {%- for item in site.data.navigation %}
+          <li><a href="{{ item.url | relative_url }}">{{ item.title }}</a></li>
+          {%- endfor %}
+        </ul>
+      </nav>
+      <div class="site-footer__col">
+        <h2 class="site-footer__heading">Elsewhere</h2>
+        <ul>
+          <li><a href="{{ site.social.github }}" rel="me noopener noreferrer" target="_blank">GitHub<span class="sr-only"> (opens in new tab)</span></a></li>
+          <li><a href="{{ site.social.linkedin }}" rel="me noopener noreferrer" target="_blank">LinkedIn<span class="sr-only"> (opens in new tab)</span></a></li>
+          <li><a href="mailto:{{ site.author.email }}">Email</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="site-footer__bottom">
+      <p>&copy; {{ 'now' | date: '%Y' }} {{ site.author.name }}</p>
+      <a href="#top">Back to top</a>
+    </div>
+  </div>
+</footer>

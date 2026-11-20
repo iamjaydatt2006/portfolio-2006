@@ -1,0 +1,41 @@
+<section class="hero" aria-labelledby="hero-title">
+  <div class="container hero__grid">
+    <div class="hero__main">
+      <h1 class="hero__title" id="hero-title">
+        <span class="hero__hello">Hello, I'm {{ site.author.short_name }}.</span>
+        I build digital experiences through software and web technologies.
+      </h1>
+      <p class="hero__lead">I'm a Computer Science Engineering student and software developer from {{ site.author.location }}, interested in building practical, scalable, and user-focused digital products.</p>
+      <div class="actions">
+        <a class="button button--primary" href="{{ '/projects/' | relative_url }}">Explore My Work</a>
+        <a class="button" href="{{ '/about/' | relative_url }}">About Me</a>
+      </div>
+      <ul class="hero__links" aria-label="Profiles">
+        <li><a href="{{ site.social.github }}" rel="me noopener noreferrer" target="_blank">GitHub<span class="sr-only"> (opens in new tab)</span></a></li>
+        <li><a href="{{ site.social.linkedin }}" rel="me noopener noreferrer" target="_blank">LinkedIn<span class="sr-only"> (opens in new tab)</span></a></li>
+        <li><a href="mailto:{{ site.author.email }}">Email</a></li>
+      </ul>
+    </div>
+
+    <dl class="hero__facts">
+      <div>
+        <dt>Based in</dt>
+        <dd>{{ site.author.location }}</dd>
+      </div>
+      <div>
+        <dt>Studying</dt>
+        <dd>{{ site.author.education }}<br><span class="muted">{{ site.author.university }}, class of {{ site.author.graduation_year }}</span></dd>
+      </div>
+      <div>
+        <dt>Founder of</dt>
+        <dd><a href="{{ site.organization.url }}" target="_blank" rel="noopener noreferrer">{{ site.organization.name }}<span class="sr-only"> (opens in new tab)</span></a><br><span class="muted">Established {{ site.organization.founded }}</span></dd>
+      </div>
+      {%- if site.availability.enabled %}
+      <div>
+        <dt>Status</dt>
+        <dd><span class="status"><span class="status__dot" aria-hidden="true"></span>{{ site.availability.text }}</span></dd>
+      </div>
+      {%- endif %}
+    </dl>
+  </div>
+</section>

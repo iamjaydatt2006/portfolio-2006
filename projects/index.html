@@ -1,0 +1,53 @@
+---
+title: Projects
+seo_title: Projects | Jaydatt Khodave
+description: Selected projects by Jaydatt Khodave, including websites, web applications, and management systems, with live links and details.
+permalink: /projects/
+lead: Websites, web applications, and systems I've built or contributed to.
+---
+{%- assign projects = site.data.projects -%}
+{%- assign featured = projects | where: 'featured', true -%}
+{%- assign categories = projects | map: 'category' | uniq | sort -%}
+
+{%- if featured.size > 0 %}
+<section class="section section--first" aria-labelledby="featured-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-head__title" id="featured-title">Featured</h2>
+    </div>
+    <div class="featured">
+      {%- for project in featured %}
+      {% include project-card.html project=project variant="row" heading="h3" %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{%- endif %}
+
+<section class="section" aria-labelledby="all-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-head__title" id="all-title">All projects</h2>
+    </div>
+
+    {%- comment -%} Filtering only appears once the list is long enough to need it. {%- endcomment -%}
+    {%- if projects.size >= 6 and categories.size > 1 %}
+    <div class="filter" data-filter hidden>
+      <p class="filter__label" id="filter-label">Filter by category</p>
+      <ul class="filter__list" aria-labelledby="filter-label">
+        <li><button type="button" class="filter__button" data-filter-value="all" aria-pressed="true">All</button></li>
+        {%- for category in categories %}
+        <li><button type="button" class="filter__button" data-filter-value="{{ category | escape }}" aria-pressed="false">{{ category }}</button></li>
+        {%- endfor %}
+      </ul>
+      <p class="sr-only" role="status" aria-live="polite" data-filter-status></p>
+    </div>
+    {%- endif %}
+
+    <ul class="grid-projects" data-filter-items>
+      {%- for project in projects %}
+      <li data-category="{{ project.category | escape }}">{% include project-card.html project=project variant="card" heading="h3" %}</li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>

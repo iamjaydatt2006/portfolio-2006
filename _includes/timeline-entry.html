@@ -1,0 +1,19 @@
+{%- comment -%} Params: period, title, subtitle, subtitle_url, text, items, tag {%- endcomment -%}
+<li class="timeline__entry">
+  <p class="timeline__period">{{ include.period }}</p>
+  <div class="timeline__body">
+    {%- if include.tag %}<p class="timeline__tag">{{ include.tag }}</p>{% endif %}
+    <h3 class="timeline__title">{{ include.title }}</h3>
+    <p class="timeline__sub">
+      {%- if include.subtitle_url -%}
+      <a href="{{ include.subtitle_url }}" target="_blank" rel="noopener noreferrer">{{ include.subtitle }}<span class="sr-only"> (opens in new tab)</span></a>
+      {%- else -%}{{ include.subtitle }}{%- endif -%}
+    </p>
+    {%- if include.text %}<p class="timeline__text">{{ include.text }}</p>{% endif %}
+    {%- if include.items %}
+    <ul class="list-rules list-rules--compact">
+      {%- for item in include.items %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+    {%- endif %}
+  </div>
+</li>

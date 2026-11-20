@@ -1,0 +1,32 @@
+{%- comment -%}
+  Params: project, variant ("row" | "card"), heading ("h2" | "h3"), index (optional)
+{%- endcomment -%}
+{%- assign tag = include.heading | default: 'h3' -%}
+{%- assign p = include.project -%}
+{%- assign detail = '/projects/' | append: p.slug | append: '/' | relative_url -%}
+<article class="project project--{{ include.variant | default: 'card' }}" data-category="{{ p.category | escape }}">
+  {%- if p.image %}
+  <a class="project__media" href="{{ detail }}" tabindex="-1" aria-hidden="true">
+    <img src="{{ p.image | relative_url }}" alt="" width="{{ p.image_width }}" height="{{ p.image_height }}" loading="{{ include.loading | default: 'lazy' }}" decoding="async">
+  </a>
+  {%- endif %}
+  <div class="project__body">
+    <p class="project__category">{{ p.category }}{% if p.year %} · {{ p.year }}{% endif %}</p>
+    <{{ tag }} class="project__name"><a href="{{ detail }}">{{ p.name }}</a></{{ tag }}>
+    <p class="project__summary">{{ p.summary }}</p>
+    {%- if p.technologies and p.technologies.size > 0 %}
+    <ul class="tags" aria-label="Technologies">
+      {%- for t in p.technologies %}<li>{{ t }}</li>{% endfor %}
+    </ul>
+    {%- endif %}
+    <ul class="project__links">
+      <li><a href="{{ detail }}">Details<span class="sr-only"> for {{ p.name }}</span></a></li>
+      {%- if p.url %}
+      <li><a href="{{ p.url }}" target="_blank" rel="noopener noreferrer">Live site<span class="sr-only"> for {{ p.name }} (opens in new tab)</span></a></li>
+      {%- endif %}
+      {%- if p.repo %}
+      <li><a href="{{ p.repo }}" target="_blank" rel="noopener noreferrer">Source<span class="sr-only"> code for {{ p.name }} (opens in new tab)</span></a></li>
+      {%- endif %}
+    </ul>
+  </div>
+</article>

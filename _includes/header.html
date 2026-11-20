@@ -1,0 +1,34 @@
+{%- assign resume = site.static_files | where: 'path', site.resume_path | first -%}
+<header class="site-header" id="top">
+  <div class="container site-header__inner">
+    <a class="wordmark" href="{{ '/' | relative_url }}"{% if page.url == '/' %} aria-current="page"{% endif %} aria-label="{{ site.author.short_name }}, home">{{ site.author.short_name }}</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" hidden>
+      <span class="nav-toggle__label">Menu</span>
+    </button>
+    <div class="site-header__menu" id="site-nav">
+      <nav class="site-nav" aria-label="Primary">
+        <ul class="site-nav__list">
+          {%- for item in site.data.navigation %}
+          {%- unless item.footer_only %}
+          {%- if item.url == '/' %}
+            {%- assign current = false -%}
+            {%- if page.url == '/' %}{% assign current = true %}{% endif %}
+          {%- else %}
+            {%- assign prefix = page.url | slice: 0, item.url.size -%}
+            {%- assign current = false -%}
+            {%- if prefix == item.url %}{% assign current = true %}{% endif %}
+          {%- endif %}
+          <li><a href="{{ item.url | relative_url }}"{% if current %} aria-current="page"{% endif %}>{{ item.title }}</a></li>
+          {%- endunless %}
+          {%- endfor %}
+        </ul>
+      </nav>
+      <div class="site-header__extra">
+        {%- if resume %}
+        <a class="button button--small" href="{{ site.resume_path | relative_url }}">Resume</a>
+        {%- endif %}
+        <a class="header-link" href="{{ site.social.github }}" rel="me noopener noreferrer" target="_blank">GitHub<span class="sr-only"> (opens in new tab)</span></a>
+      </div>
+    </div>
+  </div>
+</header>

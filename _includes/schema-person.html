@@ -1,0 +1,32 @@
+{%- assign base = site.canonical_url -%}
+    {
+      "@type": "Person",
+      "@id": "{{ base }}/#person",
+      "name": {{ site.author.name | jsonify }},
+      "url": "{{ base }}/",
+      "jobTitle": {{ site.author.job_title | jsonify }},
+      "email": "mailto:{{ site.author.email }}",
+      "description": {{ site.description | strip_newlines | strip | jsonify }},
+      "address": {
+        "@type": "PostalAddress",
+        "addressRegion": {{ site.author.region | jsonify }},
+        "addressCountry": {{ site.author.country | jsonify }}
+      },
+      "affiliation": {
+        "@type": "CollegeOrUniversity",
+        "name": {{ site.author.university | jsonify }}
+      },
+      "knowsAbout": [{% for group in site.data.skills %}{% for item in group.items %}{{ item | jsonify }}{% unless forloop.last and forloop.parentloop.last %}, {% endunless %}{% endfor %}{% endfor %}],
+      "sameAs": [
+        {{ site.social.github | jsonify }},
+        {{ site.social.linkedin | jsonify }}
+      ]
+    },
+    {
+      "@type": "Organization",
+      "@id": "{{ base }}/#organization",
+      "name": {{ site.organization.name | jsonify }},
+      "url": {{ site.organization.url | jsonify }},
+      "foundingDate": "{{ site.organization.founded }}",
+      "founder": { "@id": "{{ base }}/#person" }
+    },

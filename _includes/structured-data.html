@@ -1,0 +1,108 @@
+{%- assign base = site.canonical_url -%}
+{%- assign page_url = base | append: page.url | replace: 'index.html', '' -%}
+{%- assign page_desc = page.description | default: site.description | strip_newlines | strip -%}
+{%- if page.url == '/404.html' -%}
+{%- else -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+{%- if page.url == '/' %}
+{% include schema-person.html %}
+    {
+      "@type": "WebSite",
+      "@id": "{{ base }}/#website",
+      "url": "{{ base }}/",
+      "name": {{ site.title | jsonify }},
+      "description": {{ site.description | strip_newlines | strip | jsonify }},
+      "inLanguage": "{{ site.lang }}",
+      "publisher": { "@id": "{{ base }}/#person" }
+    },
+    {
+      "@type": "ProfilePage",
+      "@id": "{{ base }}/#webpage",
+      "url": "{{ base }}/",
+      "name": {{ page.seo_title | default: site.title | jsonify }},
+      "description": {{ page_desc | jsonify }},
+      "isPartOf": { "@id": "{{ base }}/#website" },
+      "mainEntity": { "@id": "{{ base }}/#person" },
+      "inLanguage": "{{ site.lang }}"
+    }
+{%- else %}
+  {%- if page.schema_type == 'AboutPage' %}
+{% include schema-person.html %}
+    {
+      "@type": "ProfilePage",
+      "@id": "{{ page_url }}#webpage",
+      "url": "{{ page_url }}",
+      "name": {{ page.seo_title | default: page.title | jsonify }},
+      "description": {{ page_desc | jsonify }},
+      "isPartOf": { "@id": "{{ base }}/#website" },
+      "mainEntity": { "@id": "{{ base }}/#person" },
+      "breadcrumb": { "@id": "{{ page_url }}#breadcrumb" },
+      "inLanguage": "{{ site.lang }}"
+    },
+  {%- elsif page.schema_type == 'CreativeWork' %}
+    {
+      "@type": "CreativeWork",
+      "@id": "{{ page_url }}#project",
+      "url": "{{ page_url }}",
+      "name": {{ page.project.name | jsonify }},
+      "description": {{ page.project.summary | jsonify }},
+      "genre": {{ page.project.category | jsonify }},
+      {%- if page.project.technologies and page.project.technologies.size > 0 %}
+      "keywords": {{ page.project.technologies | join: ', ' | jsonify }},
+      {%- endif %}
+      {%- if page.project.image %}
+      "image": {{ site.canonical_url | append: page.project.image | jsonify }},
+      {%- endif %}
+      {%- if page.project.url %}
+      "sameAs": {{ page.project.url | jsonify }},
+      {%- endif %}
+      "author": { "@id": "{{ base }}/#person" },
+      "isPartOf": { "@id": "{{ base }}/#website" },
+      "mainEntityOfPage": { "@id": "{{ page_url }}#webpage" },
+      "inLanguage": "{{ site.lang }}"
+    },
+    {
+      "@type": "WebPage",
+      "@id": "{{ page_url }}#webpage",
+      "url": "{{ page_url }}",
+      "name": {{ page.seo_title | default: page.title | jsonify }},
+      "description": {{ page_desc | jsonify }},
+      "isPartOf": { "@id": "{{ base }}/#website" },
+      "about": { "@id": "{{ page_url }}#project" },
+      "breadcrumb": { "@id": "{{ page_url }}#breadcrumb" },
+      "inLanguage": "{{ site.lang }}"
+    },
+  {%- else %}
+    {
+      "@type": "{{ page.schema_type | default: 'WebPage' }}",
+      "@id": "{{ page_url }}#webpage",
+      "url": "{{ page_url }}",
+      "name": {{ page.seo_title | default: page.title | jsonify }},
+      "description": {{ page_desc | jsonify }},
+      "isPartOf": { "@id": "{{ base }}/#website" },
+      "about": { "@id": "{{ base }}/#person" },
+      "breadcrumb": { "@id": "{{ page_url }}#breadcrumb" },
+      "inLanguage": "{{ site.lang }}"
+    },
+  {%- endif %}
+    {
+      "@type": "BreadcrumbList",
+      "@id": "{{ page_url }}#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "{{ base }}/" },
+        {%- if page.parent_url %}
+        { "@type": "ListItem", "position": 2, "name": {{ page.parent_title | jsonify }}, "item": "{{ base }}{{ page.parent_url }}" },
+        { "@type": "ListItem", "position": 3, "name": {{ page.title | jsonify }}, "item": "{{ page_url }}" }
+        {%- else %}
+        { "@type": "ListItem", "position": 2, "name": {{ page.title | jsonify }}, "item": "{{ page_url }}" }
+        {%- endif %}
+      ]
+    }
+{%- endif %}
+  ]
+}
+</script>
+{%- endif -%}

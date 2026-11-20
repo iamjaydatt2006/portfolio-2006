@@ -1,0 +1,26 @@
+- category: Frontend
+  description: Building responsive, accessible interfaces.
+  items:
+    - HTML5
+    - CSS3
+    - JavaScript
+    - React
+    - Responsive Design
+- category: Backend
+  description: Server-side logic and the APIs that connect products.
+  items:
+    - Node.js
+    - PHP
+    - REST APIs
+- category: Databases
+  description: Storing and querying application data.
+  items:
+    - MySQL
+    - Firebase
+- category: Tools & Platforms
+  description: Version control, hosting, and the everyday environment.
+  items:
+    - Git
+    - GitHub
+    - Linux
+    - Cloudflare

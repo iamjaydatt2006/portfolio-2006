@@ -1,0 +1,105 @@
+---
+layout: default
+---
+{%- assign project = page.project -%}
+<header class="page-intro">
+  <div class="container">
+    {%- include breadcrumbs.html -%}
+    <p class="eyebrow">{{ project.category }}</p>
+    <h1 class="page-intro__title">{{ project.name }}</h1>
+    <p class="page-intro__lead">{{ project.summary }}</p>
+    {%- if project.url or project.repo %}
+    <div class="actions">
+      {%- if project.url %}
+      <a class="button button--primary" href="{{ project.url }}" target="_blank" rel="noopener noreferrer">Visit live site<span class="sr-only"> (opens in new tab)</span></a>
+      {%- endif %}
+      {%- if project.repo %}
+      <a class="button" href="{{ project.repo }}" target="_blank" rel="noopener noreferrer">View source code<span class="sr-only"> (opens in new tab)</span></a>
+      {%- endif %}
+    </div>
+    {%- endif %}
+  </div>
+</header>
+
+{%- if project.image %}
+<div class="container project-hero">
+  <img src="{{ project.image | relative_url }}" alt="{{ project.image_alt | default: project.name | escape }}" width="{{ project.image_width }}" height="{{ project.image_height }}" decoding="async" fetchpriority="high">
+</div>
+{%- endif %}
+
+<div class="section section--flush">
+  <div class="container">
+    <dl class="facts">
+      <div><dt>Category</dt><dd>{{ project.category }}</dd></div>
+      {%- if project.year %}
+      <div><dt>Year</dt><dd>{{ project.year }}</dd></div>
+      {%- endif %}
+      {%- if project.technologies and project.technologies.size > 0 %}
+      <div><dt>Technologies</dt><dd>{{ project.technologies | join: ', ' }}</dd></div>
+      {%- endif %}
+      {%- if project.url %}
+      <div><dt>Website</dt><dd><a href="{{ project.url }}" target="_blank" rel="noopener noreferrer">{{ project.url | remove: 'https://' | split: '/' | join: '/' }}<span class="sr-only"> (opens in new tab)</span></a></dd></div>
+      {%- endif %}
+    </dl>
+  </div>
+</div>
+
+{%- assign blocks = 'overview,problem,solution,development' | split: ',' -%}
+{%- for key in blocks %}
+  {%- assign text = project[key] -%}
+  {%- if text %}
+<section class="section" aria-labelledby="{{ key }}-title">
+  <div class="container section__grid">
+    <h2 class="section__title" id="{{ key }}-title">{% case key %}{% when 'problem' %}Problem{% when 'solution' %}Solution{% when 'development' %}Development{% else %}Overview{% endcase %}</h2>
+    <div class="section__body prose"><p>{{ text }}</p></div>
+  </div>
+</section>
+  {%- endif %}
+{%- endfor %}
+
+{%- if project.features and project.features.size > 0 %}
+<section class="section" aria-labelledby="features-title">
+  <div class="container section__grid">
+    <h2 class="section__title" id="features-title">Features</h2>
+    <div class="section__body">
+      <ul class="list-rules">
+        {%- for feature in project.features %}
+        <li>{{ feature }}</li>
+        {%- endfor %}
+      </ul>
+    </div>
+  </div>
+</section>
+{%- endif %}
+
+{%- if project.screenshots and project.screenshots.size > 0 %}
+<section class="section" aria-labelledby="screens-title">
+  <div class="container section__grid">
+    <h2 class="section__title" id="screens-title">Screenshots</h2>
+    <div class="section__body screenshots">
+      {%- for shot in project.screenshots %}
+      <img src="{{ shot.src | relative_url }}" alt="{{ shot.alt | escape }}" width="{{ shot.width }}" height="{{ shot.height }}" loading="lazy" decoding="async">
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+{%- endif %}
+
+{%- assign related = site.data.projects | where_exp: 'p', 'p.slug != project.slug' -%}
+{%- if related.size > 0 %}
+<section class="section" aria-labelledby="related-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-head__title" id="related-title">Related projects</h2>
+      <a class="link-more" href="{{ '/projects/' | relative_url }}">All projects</a>
+    </div>
+    <ul class="grid-projects">
+      {%- for item in related limit: 3 %}
+      <li>{% include project-card.html project=item variant="card" heading="h3" %}</li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+{%- endif %}
+
+{% include contact-cta.html %}

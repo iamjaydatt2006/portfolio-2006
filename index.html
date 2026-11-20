@@ -1,0 +1,67 @@
+---
+title: Home
+seo_title: Jaydatt Khodave | Computer Science Student & Software Developer
+description: Portfolio of Jaydatt Khodave, a Computer Science Engineering student at MGM University building modern websites, web applications, and digital solutions.
+layout: default
+permalink: /
+---
+{% include hero.html %}
+
+<section class="section" aria-labelledby="intro-title">
+  <div class="container section__grid">
+    <h2 class="section__title section__title--display" id="intro-title">A little about what I do.</h2>
+    <div class="section__body prose">
+      <p>I'm studying Computer Science &amp; Engineering and spend most of my time on software development, with a particular interest in full-stack web development. I like building practical digital products, and I treat technology as something to keep learning rather than something to finish.</p>
+      <p>I'm also the founder of <a href="{{ site.organization.url }}" target="_blank" rel="noopener noreferrer">{{ site.organization.name }}<span class="sr-only"> (opens in new tab)</span></a>, where I work on websites and digital products.</p>
+      <p><a class="link-more" href="{{ '/about/' | relative_url }}">Read the full story</a></p>
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="work-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-head__title" id="work-title">Selected work</h2>
+      <a class="link-more" href="{{ '/projects/' | relative_url }}">View all projects</a>
+    </div>
+    <div class="featured">
+      {%- assign featured = site.data.projects | where: 'featured', true -%}
+      {%- for project in featured %}
+      {% include project-card.html project=project variant="row" heading="h3" %}
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="interests-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-head__title" id="interests-title">Technical interests</h2>
+      <a class="link-more" href="{{ '/skills/' | relative_url }}">See skills</a>
+    </div>
+    <ul class="interests">
+      {%- for item in site.data.interests %}
+      <li>
+        <h3 class="interests__title">{{ item.title }}</h3>
+        <p>{{ item.text }}</p>
+      </li>
+      {%- endfor %}
+    </ul>
+  </div>
+</section>
+
+<section class="section" aria-labelledby="exp-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 class="section-head__title" id="exp-title">Experience</h2>
+      <a class="link-more" href="{{ '/experience/' | relative_url }}">Full experience</a>
+    </div>
+    <ol class="timeline">
+      {%- for entry in site.data.experience limit: 1 %}
+      {% include timeline-entry.html period=entry.period title=entry.title subtitle=entry.organization subtitle_url=entry.url %}
+      {%- endfor %}
+    </ol>
+  </div>
+</section>
+
+{% include contact-cta.html %}

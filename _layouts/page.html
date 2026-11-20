@@ -1,0 +1,18 @@
+---
+layout: default
+---
+<header class="page-intro">
+  <div class="container">
+    {%- include breadcrumbs.html -%}
+    <h1 class="page-intro__title">{{ page.heading | default: page.title }}</h1>
+    {%- if page.lead %}
+    <p class="page-intro__lead">{{ page.lead }}</p>
+    {%- endif %}
+  </div>
+</header>
+
+{{ content }}
+
+{%- unless page.hide_cta %}
+{% include contact-cta.html %}
+{%- endunless %}
